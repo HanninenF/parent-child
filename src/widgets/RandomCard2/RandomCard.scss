@@ -1,0 +1,31 @@
+$cardWidth: 150px;
+
+.cardWrapper {
+  display: flex;
+  gap: 10px;
+  margin: 10px;
+  flex-wrap: wrap;
+
+  .card {
+    border-radius: 10px;
+    display: flex;
+    color: black;
+    background-color: white;
+    justify-content: space-between;
+    flex-direction: column;
+    width: $cardWidth;
+    height: $cardWidth * 1.5;
+    border: 2px solid black;
+
+    .cardTop {
+      padding: 10px;
+      justify-items: flex-start;
+    }
+    .cardMiddle {
+    }
+    .cardBottom {
+      padding: 10px;
+      justify-items: flex-end;
+    }
+  }
+}

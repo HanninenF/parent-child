@@ -1,5 +1,4 @@
 import { useState } from "react";
-import TextInput from "../../components/TextInput/TextInput";
 
 type DeckOfCards = {
   Spades: string[];
@@ -14,7 +13,7 @@ type RandomCard = {
 };
 
 export const RandomDeckOfCards = () => {
-  const [deckOfCards, setDeckofCards] = useState<DeckOfCards>({
+  const [deckOfCards, setDeckOfCards] = useState<DeckOfCards>({
     Spades: [
       "Ace",
       "2",
@@ -93,12 +92,17 @@ export const RandomDeckOfCards = () => {
     const randomCard = allCards[Math.floor(Math.random() * allCards.length)];
     setRandomCard(randomCard);
 
-    setDeckofCards((prevDeck) => ({
-      ...prevDeck,
-      [randomCard.suit as keyof DeckOfCards]: prevDeck[
-        randomCard.suit as keyof DeckOfCards
-      ].filter((card) => card !== randomCard.card),
-    }));
+    setDeckOfCards((prevDeck) => {
+      const suitKey = randomCard.suit as keyof DeckOfCards;
+      const updatedSuit = prevDeck[suitKey].filter(
+        (card) => card !== randomCard.card
+      );
+
+      return {
+        ...prevDeck,
+        [suitKey]: updatedSuit,
+      };
+    });
   };
 
   return (
