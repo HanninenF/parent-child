@@ -1,8 +1,8 @@
 import React from "react";
-import clubsAceSvg from "../../../assets/cardSvg/clubs_ace.svg";
-import diamondsAceSvg from "../../../assets/cardSvg/diamonds_ace.svg";
-import spadesAceSvg from "../../../assets/cardSvg/spades_ace_simple.svg";
-import heartsAceSvg from "../../../assets/cardSvg/hearts_ace.svg";
+import clubsAceSvg from "../../assets/cardSvg/clubs_ace.svg";
+import diamondsAceSvg from "../../assets/cardSvg/diamonds_ace.svg";
+import spadesAceSvg from "../../assets/cardSvg/spades_ace_simple.svg";
+import heartsAceSvg from "../../assets/cardSvg/hearts_ace.svg";
 
 type CardSvgProps = {
   suit: string;

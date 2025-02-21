@@ -1,7 +1,7 @@
 import "./RandomCard.scss";
 import { useState } from "react";
 import { cards } from "../../assets/cardsInDeckOfCards/cardsInDeckOfCards";
-import { CardSvg } from "./CardSvg/CardSvg";
+import { CardSvg } from "../CardSvg/CardSvg";
 
 type DeckOfCards = {
   Hearts: string[];
