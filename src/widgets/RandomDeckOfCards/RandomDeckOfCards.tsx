@@ -92,6 +92,12 @@ export const RandomDeckOfCards = () => {
       cardsInSuits[Math.floor(Math.random() * cardsInSuits.length)]; */
     const randomCard = allCards[Math.floor(Math.random() * allCards.length)];
     setRandomCard(randomCard);
+
+    setDeckofCards(deckOfCards.filter((card)=>
+    
+        deckOfCards !== randomCard? card:null;
+
+    ))
   };
 
   return (
