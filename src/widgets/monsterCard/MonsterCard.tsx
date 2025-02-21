@@ -43,10 +43,16 @@ export const MonsterCard = () => {
     );
   };
 
+  const handleDelete = (id: number) => {
+    setCards((prevItems) => prevItems.filter((card => card.cardId !== id)));
+  };
+
   return (
     <>
+          <h1>Monster Gallery</h1>
       <div className="monsterFormContainer">
         <form className="monsterForm" onSubmit={handleSubmit}>
+          <p className="title">Add a monster
           <label htmlFor="">
             <TextInput
               className="addMonsterInput"
@@ -57,23 +63,29 @@ export const MonsterCard = () => {
               placeHolder="monster name"
             />
           </label>
-          <button type="submit" className="addMonsterButton">
-            Add Monster
+          </p>
+          <button className="addMonsterButton" type="submit">
+            Add
           </button>
         </form>
+      </div>
+  
+      <div className="monsterCard">
 
         {cards.map((card) => (
-          <div key={card.cardId}>
-            <h1>Card</h1>
+          <div className="monsterCardContainer" key={card.cardId}>
+            <h2>{card.cardText}</h2>
+            
             <TextInput
               className="editCardInput"
               name={"editMonsterName" + card.cardId.toString()}
               onChange={handleChange}
               value={inputValues["editMonsterName" + card.cardId.toString()]}
               placeHolder="edit monster name"
-            />
-            <button onClick={() => handleEdit(card.cardId)}>Edit</button>
-            <h2>{card.cardText}</h2>
+              />
+            <button className="edit" onClick={() => handleEdit(card.cardId)}>Edit</button>
+            <button className="delete" onClick={() => handleDelete(card.cardId)}>Delete</button>
+            
           </div>
         ))}
       </div>
