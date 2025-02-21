@@ -57,6 +57,9 @@ export const RandomCard = () => {
     // 🛠 Ta bort det dragna kortet från leken med setDeckOfCards()
     // 💡 Tips: Filtrera bort kortet från deckOfCards baserat på suit och card
     /* setDeckOfCards(...) */
+    /*  1. Hitta vilket suit kortet tillhör (randomCard.suit).
+        2. Filtrera bort det dragna kortet från det suitets array.
+        3. Uppdatera deckOfCards med det nya värdet. */
   };
   return (
     <>
