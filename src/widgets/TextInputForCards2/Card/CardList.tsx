@@ -33,8 +33,8 @@ export default function ({
               placeHolder="edit card"
             />
           </label>
-          <button onClick={() => handleChangeCard(card.id)}>edit</button>
-          <button onClick={() => handleDeleteCard(card.id)}>Delete Card</button>
+          <button  onClick={() => handleChangeCard(card.id)}>edit</button>
+          <button  onClick={() => handleDeleteCard(card.id)}>Delete Card</button>
         </div>
       ))}
     </>
