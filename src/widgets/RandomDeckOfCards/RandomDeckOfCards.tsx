@@ -17,7 +17,7 @@ export const RandomDeckOfCards = () => {
   const [deckOfCards, setDeckofCards] = useState<DeckOfCards>({
     Spades: [
       "Ace",
-      "2,",
+      "2",
       "3",
       "4",
       "5",
@@ -32,7 +32,7 @@ export const RandomDeckOfCards = () => {
     ],
     Hearts: [
       "Ace",
-      "2,",
+      "2",
       "3",
       "4",
       "5",
@@ -47,7 +47,7 @@ export const RandomDeckOfCards = () => {
     ],
     Clubs: [
       "Ace",
-      "2,",
+      "2",
       "3",
       "4",
       "5",
@@ -62,7 +62,7 @@ export const RandomDeckOfCards = () => {
     ],
     Diamonds: [
       "Ace",
-      "2,",
+      "2",
       "3",
       "4",
       "5",
@@ -93,11 +93,12 @@ export const RandomDeckOfCards = () => {
     const randomCard = allCards[Math.floor(Math.random() * allCards.length)];
     setRandomCard(randomCard);
 
-    setDeckofCards(deckOfCards.filter((card)=>
-    
-        deckOfCards !== randomCard? card:null;
-
-    ))
+    setDeckofCards((prevDeck) => ({
+      ...prevDeck,
+      [randomCard.suit as keyof DeckOfCards]: prevDeck[
+        randomCard.suit as keyof DeckOfCards
+      ].filter((card) => card !== randomCard.card),
+    }));
   };
 
   return (
