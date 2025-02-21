@@ -17,12 +17,16 @@ type Card = {
 };
 
 export const RandomCard = () => {
-  const [deckOfCards, setDeckOfCards] = useState<DeckOfCards>({
-    Hearts: [...cards],
-    Spades: [...cards],
-    Diamonds: [...cards],
-    Clubs: [...cards],
-  });
+  const [
+    deckOfCards,
+    setDeckOfCards,
+  ] /* 💡🛠 Använd setDeckOfCards för att ta bort kort från leken efter dragning*/ =
+    useState<DeckOfCards>({
+      Hearts: [...cards],
+      Spades: [...cards],
+      Diamonds: [...cards],
+      Clubs: [...cards],
+    });
 
   const [randomCards, setRandomCards] = useState<Card[]>([]);
 
@@ -49,6 +53,10 @@ export const RandomCard = () => {
 
     //jag ska sätta randomCardState
     setRandomCards((prevCards) => [...prevCards, randomCard]);
+
+    // 🛠 Ta bort det dragna kortet från leken med setDeckOfCards()
+    // 💡 Tips: Filtrera bort kortet från deckOfCards baserat på suit och card
+    /* setDeckOfCards(...) */
   };
   return (
     <>
