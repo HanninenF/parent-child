@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       {/* <TextInputForCards /> */}
-      <MonsterCard />
+      {/* <MonsterCard /> */}
       {/*  <RandomDeckOfCards /> */}
       <RandomCard />
     </>
