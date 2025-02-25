@@ -5,6 +5,7 @@ import { TextInputForCards } from "./widgets/TextInputForCards2/TextInputForCard
 import { MonsterCard } from "./widgets/monsterCard/MonsterCard";
 import { RandomCard } from "./widgets/RandomCard2/RandomCard";
 import { RandomCard3 } from "./widgets/RandomCard3/RandomCard3";
+import { CardCounter } from "./widgets/CardCounter/CardCounter";
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
       {/* <MonsterCard /> */}
       {/*  <RandomDeckOfCards /> */}
       {/* <RandomCard3 /> */}
-      <RandomCard />
+      {/* <RandomCard /> */}
+      <CardCounter />
     </>
   );
 }
