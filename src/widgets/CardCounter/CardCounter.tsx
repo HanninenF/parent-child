@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "./CardCounter.scss";
 import { cards } from "../../assets/cardsInDeckOfCards/cardsInDeckOfCards";
 import { Counter } from "../../components/Counter/Counter";
-import { CardHistory } from "./CardHistory/CardHistory";
+import { CardHistory } from "../CardHistory/CardHistory";
 
 type DeckOfCards = {
   Hearts: string[];
@@ -11,7 +11,7 @@ type DeckOfCards = {
   Clubs: string[];
 };
 
-type Card = {
+export type Card = {
   suit: string;
   value: string;
   id?: number;
@@ -62,18 +62,8 @@ export const CardCounter = () => {
     <>
       <div>
         <Counter counter={counter} />
-        <div>
-          <h1>5 latest Cards</h1>
-          {fiveLatest.map((card) => (
-            <div key={card.id}>
-              <p>
-                {" "}
-                {card.value} of {card.suit}{" "}
-              </p>
-            </div>
-          ))}
-        </div>
-        {/* <CardHistory/> */}
+
+        <CardHistory fiveLatest={fiveLatest} />
       </div>
       <button onClick={getRandomCard}>Get Card</button>
 
