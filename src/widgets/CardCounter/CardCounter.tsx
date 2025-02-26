@@ -3,31 +3,59 @@ import "./CardCounter.scss";
 import { cards } from "../../assets/cardsInDeckOfCards/cardsInDeckOfCards";
 import { Counter } from "../../components/Counter/Counter";
 import { CardHistory } from "../CardHistory/CardHistory";
-
-type DeckOfCards = {
+import { CardDisplay } from "../CardDisplay/CardDisplay";
+import { DrawCard } from "../DrawCard/DrawCard";
+import { nanoid } from "nanoid";
+import React from "react";
+import { DeckContainer } from "../DeckContainer/DeckContainer";
+type DeckOfCard = {
   Hearts: string[];
   Diamonds: string[];
   Spades: string[];
   Clubs: string[];
 };
 
+export type DecksOfCards = {
+  deck: DeckOfCard;
+  id?: string;
+};
+
 export type Card = {
   suit: string;
   value: string;
-  id?: number;
+  id?: string;
 };
 
 export const CardCounter = () => {
-  const [deckOfCards, setDeckOfCards] = useState<DeckOfCards>({
+  const [deckOfCards, setDeckOfCards] = useState<DeckOfCard>({
     Hearts: [...cards],
     Diamonds: [...cards],
     Spades: [...cards],
     Clubs: [...cards],
   });
 
+  const [decks, setDecks] = useState<DecksOfCards[]>([
+    { deck: deckOfCards, id: nanoid() },
+  ]);
+
   const [randomCards, setRandomCards] = useState<Card[]>([]);
   const [counter, setCounter] = useState<number>(0);
   const [fiveLatest, setFiveLatest] = useState<Card[]>([]);
+
+  const getDeck = () => {
+    setDecks((prevDecks) => [
+      ...prevDecks,
+      {
+        deck: {
+          Hearts: [...cards],
+          Diamonds: [...cards],
+          Spades: [...cards],
+          Clubs: [...cards],
+        },
+        id: nanoid(),
+      },
+    ]);
+  };
 
   const getRandomCard = () => {
     setCounter((prev) => prev + 1);
@@ -35,7 +63,7 @@ export const CardCounter = () => {
 
     const allCards: Card[] = Object.entries(deckOfCards).flatMap(
       ([suit, values]: [string, string[]]) =>
-        values.map((value) => ({ suit, value, id: Date.now() }))
+        values.map((value) => ({ suit, value, id: nanoid() }))
     );
 
     const randomKey = Math.floor(allCards.length * Math.random());
@@ -54,9 +82,23 @@ export const CardCounter = () => {
     /* const randomCard: Card = ; */
   };
 
+  const resetDeck = () => {
+    setDeckOfCards((prevDeck) => ({
+      ...prevDeck,
+      Hearts: [...cards],
+      Diamonds: [...cards],
+      Spades: [...cards],
+      Clubs: [...cards],
+    }));
+
+    setRandomCards([]);
+    setFiveLatest([]);
+  };
+
   useEffect(() => {
     console.log(`five latest updated`, fiveLatest);
-  }, [fiveLatest]);
+    console.log("new deck", decks);
+  }, [fiveLatest, decks]);
 
   return (
     <>
@@ -65,16 +107,15 @@ export const CardCounter = () => {
 
         <CardHistory fiveLatest={fiveLatest} />
       </div>
-      <button onClick={getRandomCard}>Get Card</button>
+      <DrawCard getRandomCard={getRandomCard} />
 
-      {randomCards.map((card) => (
-        <div key={card.id}>
-          <p>
-            {" "}
-            {card.value} of {card.suit}{" "}
-          </p>
-        </div>
+      <button onClick={resetDeck}>Reset Deck</button>
+      <button onClick={getDeck}>Get Deck</button>
+
+      {decks.map((deck) => (
+        <DeckContainer key={deck.id} deck={deck} />
       ))}
+      <CardDisplay randomCards={randomCards} />
     </>
   );
 };
