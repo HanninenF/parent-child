@@ -16,6 +16,7 @@ function App() {
       {/* <RandomCard3 /> */}
       {/* <RandomCard /> */}
       <CardCounter />
+      <Luke />
     </>
   );
 }
