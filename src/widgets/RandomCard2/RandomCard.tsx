@@ -27,9 +27,19 @@ export const RandomCard = () => {
       Diamonds: [...cards],
       Clubs: [...cards],
     });
-
+  console.log(deckOfCards)
   const [randomCards, setRandomCards] = useState<Card[]>([]);
 
+
+  const removeValueFromSpecificArray = (arrayName: keyof DeckOfCards, value: string) => {
+    setDeckOfCards((prevData: DeckOfCards) => {
+
+      return {
+        ...prevData,
+        [arrayName]: (prevData[arrayName] as string[]).filter((item: string) => item !== value),
+      };
+    });
+  };
   const drawCard = () => {
     //dra ett kort från kortleken state
     //gå igenom alla nyckelvärdepar och spara som en array med objekt för varje element i arrayerna
@@ -44,14 +54,7 @@ export const RandomCard = () => {
     console.log("randomIndex", randomIndex);
     const randomCard: Card = { ...allCards[randomIndex], id: Date.now() };
     console.log("randomCard", randomCard);
-
-    /*jag har nu:
-    randomCard {
-                    "suit": "Hearts",
-                    "card": "5"
-                }*/
-
-    //jag ska sätta randomCardState
+    removeValueFromSpecificArray(randomCard.suit as keyof DeckOfCards, randomCard.card)
     setRandomCards((prevCards) => [...prevCards, randomCard]);
 
     // 🛠 Ta bort det dragna kortet från leken med setDeckOfCards()
