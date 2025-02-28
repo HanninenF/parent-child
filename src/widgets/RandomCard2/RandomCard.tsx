@@ -17,35 +17,35 @@ type Card = {
 };
 
 export const RandomCard = () => {
-  const [
-    deckOfCards,
-    setDeckOfCards,
-  ] /* 💡🛠 Använd setDeckOfCards för att ta bort kort från leken efter dragning*/ =
-    useState<DeckOfCards>({
-      Hearts: [...cards],
-      Spades: [...cards],
-      Diamonds: [...cards],
-      Clubs: [...cards],
-    });
-  console.log(deckOfCards)
+  const initialDeck = {
+    Hearts: [...cards],
+    Spades: [...cards],
+    Diamonds: [...cards],
+    Clubs: [...cards],
+  };
+
+  const [deckOfCards, setDeckOfCards] = useState<DeckOfCards>(initialDeck);
   const [randomCards, setRandomCards] = useState<Card[]>([]);
 
 
   const removeValueFromSpecificArray = (arrayName: keyof DeckOfCards, value: string) => {
-    setDeckOfCards((prevData: DeckOfCards) => {
-
-      return {
-        ...prevData,
-        [arrayName]: (prevData[arrayName] as string[]).filter((item: string) => item !== value),
-      };
-    });
+    setDeckOfCards((prevData) => ({
+      ...prevData,
+      [arrayName]: prevData[arrayName].filter((item) => item !== value), //.filter elements of an array that meets the condition specified in a callback
+    }));
   };
+
   const drawCard = () => {
     //dra ett kort från kortleken state
     //gå igenom alla nyckelvärdepar och spara som en array med objekt för varje element i arrayerna
     const allCards: Card[] = Object.entries(deckOfCards).flatMap(
       ([suit, cards]) => cards.map((card) => ({ suit, card }))
     );
+
+    if (allCards.length === 0) {
+      alert("Inga fler kort kvar i kortleken!");
+      return;
+    } //Om carddeck är tom får man en alert med info om det
 
     //skapa randomkort från allCards
     //jag har nu en array av objekt. Jag ska plocka ut ett kort från arrayen av kort(objekt) genom random
@@ -64,10 +64,21 @@ export const RandomCard = () => {
         2. Filtrera bort det dragna kortet från det suitets array.
         3. Uppdatera deckOfCards med det nya värdet. */
   };
+    
+  const resetDeck = () => { //Reste function
+    setDeckOfCards(initialDeck);
+    setRandomCards([]);
+    
+  };
+  const deleteCard = (id?: number) => { //Delete function
+    setRandomCards((prevCards) => prevCards.filter((card) => card.id !== id));
+  };
+
   return (
     <>
-      <div>
-        <button onClick={drawCard}>Get Card</button>
+      <div className="buttons">
+        <button className="get-button" onClick={drawCard}>Get Card</button>
+        <button className="reset-button" onClick={resetDeck}>Reset Deck</button>
       </div>
 
       <div className="cardWrapper">
@@ -81,6 +92,7 @@ export const RandomCard = () => {
             </div>
             <div className="cardBottom">
               <h2>{card.card}</h2>
+              <button className="delete-button" onClick={() => deleteCard(card.id)}>⛔</button>
             </div>
           </div>
         ))}
